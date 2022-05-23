@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: avalier-tcp-proxy
+  labels:
+    app: avalier-tcp-proxy
+  replicas: 2
+  minReadySeconds: 10
+  selector:
+    matchLabels:
+      app: avalier-tcp-proxy
+  template:
+    metadata:
+      labels:
+        app: avalier-tcp-proxy
+    spec:
+      containers:
+      - name: avalier-tcp-proxy
+        image: avalier/tcp-proxy:latest
+        ports:
+        - containerPort: 1491
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
